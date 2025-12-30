@@ -26,7 +26,7 @@
               {{ account.type }}
             </span>
             <span v-if="account.expiryDate" class="text-sm text-gray-500">
-              تاریخ انقضا: {{ formatDate(account.expiryDate) }}
+              تاریخ انقضا: <span dir="ltr">{{ formatDate(account.expiryDate) }}</span>
             </span>
           </div>
 
@@ -41,7 +41,7 @@
             </div>
             <div v-if="account.description" class="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <label class="font-semibold text-gray-600 min-w-[80px]">توضیحات:</label>
-              <span class="text-gray-900 break-all">{{ account.description }}</span>
+              <p dir="ltr" class="text-gray-900 break-all whitespace-pre-line">{{ account.description }}</p>
             </div>
           </div>
         </div>
@@ -66,5 +66,5 @@ const badgeClasses = computed(() => ({
   'bg-red-500 text-white': props.account.type === 'Limited'
 }))
 
-const formatDate = (date) => new Date(date).toLocaleDateString('fa-IR')
+const formatDate = (date) => date + ' (' + new Date(date).toLocaleDateString('fa-IR') + ')'
 </script>
