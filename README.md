@@ -2,6 +2,10 @@
 
 Single-page app for managing AI tool accounts (Cursor & Windsurf).
 
+## Screenshot
+
+<img width="1495" height="911" alt="image" src="https://github.com/user-attachments/assets/1ef41f0b-eea8-4d4d-a16a-0579a7ed6577" />
+
 ## Getting Started
 
 ```bash
