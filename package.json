@@ -3,7 +3,7 @@
     "productName": "Aideam",
     "description": "AI IDE Account Manager",
     "author": "Sadegh19B",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "type": "module",
     "main": "electron/main.js",
     "scripts": {
@@ -16,6 +16,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "uuid": "^11.0.3",
         "sweetalert2": "^11.26.17",
         "vazirmatn": "^33.0.3",
         "vue": "^3.5.26"

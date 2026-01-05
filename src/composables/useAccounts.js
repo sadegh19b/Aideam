@@ -1,4 +1,5 @@
 import { ref, computed } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 
 const accounts = ref([])
 const STORAGE_KEY = 'ai_accounts'
@@ -65,9 +66,8 @@ export function useAccounts() {
     }
 
     const addAccount = async (account) => {
-        const newId = accounts.value.length > 0 ? Math.max(...accounts.value.map(a => a.id)) + 1 : 1
         accounts.value.push({
-            id: newId,
+            id: uuidv4(),
             ...account,
             createdAt: new Date().toISOString()
         })
