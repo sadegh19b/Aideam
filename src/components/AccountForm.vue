@@ -41,10 +41,10 @@
       </div>
       
       <div class="flex gap-3 pt-2">
-        <button type="submit" class="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:-translate-y-0.5 hover:shadow-lg transition-all">
+        <button type="submit" class="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:-translate-y-0.5 hover:shadow-lg transition-all cursor-pointer">
           {{ editMode ? 'بروزرسانی' : 'افزودن' }}
         </button>
-        <button v-if="editMode" type="button" @click="handleCancel" class="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
+        <button v-if="editMode" type="button" @click="handleCancel" class="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-200 transition cursor-pointer">
           لغو
         </button>
       </div>

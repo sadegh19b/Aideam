@@ -81,9 +81,28 @@ const handleCancel = () => {
   activeAccountId.value = null
 }
 
-const handleDelete = (id) => {
-  if (confirm('آیا از حذف این اکانت اطمینان دارید؟')) {
+const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: 'حذف اکانت',
+    text: 'آیا از حذف این اکانت اطمینان دارید؟',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'بله، حذف شود',
+    cancelButtonText: 'انصراف',
+    confirmButtonColor: '#ef4444',
+    cancelButtonColor: '#6b7280',
+    reverseButtons: true,
+    focusCancel: true
+  })
+
+  if (result.isConfirmed) {
     deleteAccount(id)
+    Swal.fire({
+      icon: 'success',
+      title: 'حذف شد',
+      text: 'اکانت با موفقیت حذف شد',
+      confirmButtonText: 'باشه'
+    })
   }
 }
 

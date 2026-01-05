@@ -2,7 +2,7 @@
     "name": "ai-ide-account-manager",
     "description": "AI IDE account manager",
     "author": "Sadegh",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "type": "module",
     "main": "electron/main.js",
     "scripts": {
@@ -11,6 +11,7 @@
         "dev:electron": "wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron electron/main.js",
         "build": "vite build",
         "build:desktop": "npm run build && electron-builder",
+        "build:portable": "npm run build && electron-builder --win portable",
         "preview": "vite preview"
     },
     "dependencies": {
@@ -48,7 +49,11 @@
             }
         ],
         "win": {
-            "icon": "public/icon.png"
+            "icon": "public/icon.png",
+            "target": [
+                "nsis",
+                "portable"
+            ]
         }
     }
 }

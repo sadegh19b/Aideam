@@ -27,13 +27,13 @@
     <td class="py-4 px-2 sm:px-4 text-sm">
       <div class="flex flex-wrap gap-2 justify-end">
         <button @click.stop="showDetails = true"
-                class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-indigo-200 text-indigo-600 hover:bg-indigo-50 transition">
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-indigo-200 text-indigo-600 hover:bg-indigo-50 transition cursor-pointer">
           مشاهده
         </button>
-        <button @click="$emit('edit', account)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-500 text-white hover:bg-blue-600 transition">
+        <button @click="$emit('edit', account)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-500 text-white hover:bg-blue-600 transition cursor-pointer">
           ویرایش
         </button>
-        <button @click="$emit('delete', account.id)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500 text-white hover:bg-red-600 transition">
+        <button @click="$emit('delete', account.id)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500 text-white hover:bg-red-600 transition cursor-pointer">
           حذف
         </button>
       </div>

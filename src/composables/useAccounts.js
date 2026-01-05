@@ -2,19 +2,54 @@ import { ref, computed } from 'vue'
 
 const accounts = ref([])
 const STORAGE_KEY = 'ai_accounts'
+const hasDesktopAPI = typeof window !== 'undefined' && window.desktopAPI?.readAccounts
+
+const readFromStorage = async () => {
+    if (hasDesktopAPI) {
+        try {
+            return await window.desktopAPI.readAccounts()
+        } catch (error) {
+            console.error('Failed to read accounts from desktop storage', error)
+            return []
+        }
+    }
+    const stored = localStorage.getItem(STORAGE_KEY)
+    return stored ? JSON.parse(stored) : []
+}
+
+const serializeAccounts = (payload) => {
+    try {
+        return JSON.parse(JSON.stringify(payload ?? []))
+    } catch {
+        return []
+    }
+}
+
+const writeToStorage = async (payload) => {
+    const serializablePayload = serializeAccounts(payload)
+    if (hasDesktopAPI) {
+        try {
+            await window.desktopAPI.writeAccounts(serializablePayload)
+            return
+        } catch (error) {
+            console.error('Failed to write accounts to desktop storage', error)
+        }
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(serializablePayload))
+}
 
 export function useAccounts() {
-    const loadAccounts = () => {
-        const stored = localStorage.getItem(STORAGE_KEY)
-        accounts.value = stored ? JSON.parse(stored) : []
-        checkExpiredAccounts()
+    const loadAccounts = async () => {
+        const stored = await readFromStorage()
+        accounts.value = Array.isArray(stored) ? stored : []
+        await checkExpiredAccounts()
     }
 
-    const saveAccounts = () => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(accounts.value))
+    const saveAccounts = async () => {
+        await writeToStorage(accounts.value)
     }
 
-    const checkExpiredAccounts = () => {
+    const checkExpiredAccounts = async () => {
         const now = new Date().toISOString().split('T')[0]
         let changed = false
 
@@ -26,30 +61,30 @@ export function useAccounts() {
             }
         })
 
-        if (changed) saveAccounts()
+        if (changed) await saveAccounts()
     }
 
-    const addAccount = (account) => {
-        const newId = accounts.value.length > 0 ? Math.max(...accounts.value.map(a => a.id)) + 1 : 1;
+    const addAccount = async (account) => {
+        const newId = accounts.value.length > 0 ? Math.max(...accounts.value.map(a => a.id)) + 1 : 1
         accounts.value.push({
             id: newId,
             ...account,
             createdAt: new Date().toISOString()
         })
-        saveAccounts()
+        await saveAccounts()
     }
 
-    const updateAccount = (id, updates) => {
+    const updateAccount = async (id, updates) => {
         const index = accounts.value.findIndex(a => a.id === id)
         if (index !== -1) {
             accounts.value[index] = { ...accounts.value[index], ...updates }
-            saveAccounts()
+            await saveAccounts()
         }
     }
 
-    const deleteAccount = (id) => {
+    const deleteAccount = async (id) => {
         accounts.value = accounts.value.filter(a => a.id !== id)
-        saveAccounts()
+        await saveAccounts()
     }
 
     const getAccountsByTool = (tool) => {

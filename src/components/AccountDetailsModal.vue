@@ -12,7 +12,7 @@
           aria-modal="true"
         >
           <button
-            class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 text-2xl leading-none"
+            class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 text-2xl leading-none cursor-pointer"
             @click="emit('close')"
             aria-label="بستن"
           >
