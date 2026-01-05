@@ -1,8 +1,9 @@
 {
-    "name": "ai-ide-account-manager",
-    "description": "AI IDE account manager",
-    "author": "Sadegh",
-    "version": "2.1.0",
+    "name": "aideam",
+    "productName": "Aideam",
+    "description": "AI IDE Account Manager",
+    "author": "Sadegh19B",
+    "version": "2.1.1",
     "type": "module",
     "main": "electron/main.js",
     "scripts": {
@@ -33,7 +34,7 @@
     },
     "build": {
         "appId": "com.aideam.aiaccountmanager",
-        "productName": "AI IDE Account Manager",
+        "productName": "Aideam",
         "directories": {
             "output": "release"
         },
