@@ -1,6 +1,6 @@
 # AI IDE Accounts Manager
 
-Single-page app for managing AI tool accounts (Cursor & Windsurf).
+A Vue 3 + Vite single-page application for managing AI tool accounts (Cursor & Windsurf) with Tailwind CSS styling and optional Electron desktop packaging.
 
 ## Screenshot
 
@@ -10,19 +10,25 @@ Single-page app for managing AI tool accounts (Cursor & Windsurf).
 
 ```bash
 npm install
-npm run dev
+npm run dev          # Vite hot reload in the browser
+npm run dev:electron # Electron app (requires npm run dev running in another terminal)
 ```
 
-Visit the Vite dev server URL printed in the terminal.
+### Build Targets
+
+| Target            | Command                 | Output                               |
+| ----------------- | ----------------------- | ------------------------------------ |
+| Static Web Bundle | `npm run build`         | Production assets inside `dist/`     |
+| Desktop App       | `npm run build:desktop` | Electron installer inside `release/` |
 
 ## Features
 
-- Manage separate lists for Cursor and Windsurf accounts.
-- Three account tiers: **Free**, **Trial**, **Limited**.
-- Optional expiry date for non-free tiers with automatic downgrade to Free after the due date.
-- Inline editing with highlighted rows and cancel/reset behavior.
-- Detail modal for each account and contextual success alerts (SweetAlert2) on add/update.
-- State persisted in `localStorage`, so data survives page reloads.
+- Separate boards for Cursor and Windsurf accounts.
+- Account tiers: **Free**, **Trial**, and **Limited**.
+- Expiration date tracking for non-free tiers with automatic downgrade to Free when the limit passes.
+- Inline editing with cancel/reset support.
+- SweetAlert2 success toasts on add and update operations.
+- State persisted in `localStorage`, so data survives reloads (per device).
 
 ## Project Structure
 
@@ -34,10 +40,14 @@ src/
 │   ├── AccountForm.vue      # Create/update form
 │   └── AccountList.vue      # Table wrapper per tool
 ├── composables/
-│   └── useAccounts.js       # Centralized state & CRUD helpers
-├── App.vue                  # Layout + orchestration
-├── main.js                  # Entry point
-└── style.css                # Tailwind base styles
+│   └── useAccounts.js
+├── App.vue
+├── main.js
+└── style.css
+
+electron/
+├── main.js        # Electron main process (BrowserWindow lifecycle)
+└── preload.js     # Safe bridge exposed to the renderer
 ```
 
 ## Tech Stack
@@ -46,6 +56,7 @@ src/
 - [Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [SweetAlert2](https://sweetalert2.github.io/) for notifications
+- [Electron](https://www.electronjs.org/) + [electron-builder](https://www.electron.build/) for desktop builds
 - [Vazirmatn](https://github.com/rastikerdar/vazirmatn) font for RTL typography
 - Browser `localStorage` for persistence
 
