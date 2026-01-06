@@ -13,10 +13,11 @@ let mainWindow = null
 async function createMainWindow() {
     mainWindow = new BrowserWindow({
         width: 1280,
-        height: 840,
-        minWidth: 1024,
-        minHeight: 640,
+        height: 740,
+        minWidth: 1280,
+        minHeight: 740,
         backgroundColor: '#111827',
+        resizable: true,
         show: false,
         autoHideMenuBar: true,
         icon: path.join(__dirname, '../public/icon.png'),

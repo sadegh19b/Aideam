@@ -1,10 +1,6 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-5">
-    <div class="max-w-7xl mx-auto">
-      <header class="text-center text-white mb-8">
-        <h1 class="text-4xl font-bold drop-shadow-lg">مدیریت اکانت‌ها</h1>
-      </header>
-      
+  <div class="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-5 flex items-center justify-center">
+    <div class="w-full max-w-7xl mx-auto">
       <main class="grid lg:grid-cols-[400px_1fr] gap-8 items-start">
         <AccountForm
           :editAccount="editingAccount"
