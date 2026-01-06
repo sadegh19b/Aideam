@@ -30,9 +30,10 @@
           >
             <button
               v-if="showCloseButton"
-              class="absolute top-4 left-4 text-gray-400 hover:text-gray-600 text-3xl leading-none cursor-pointer"
+              class="absolute top-4 text-gray-400 hover:text-gray-600 text-3xl leading-none cursor-pointer"
+              :class="{ 'left-4 right-auto': dir === 'rtl', 'right-4 left-auto': dir === 'ltr' }"
               @click="emit('close')"
-              aria-label="بستن"
+              :aria-label="t('modal.close')"
             >
               ×
             </button>
@@ -41,7 +42,7 @@
               <slot name="header" />
             </header>
 
-            <div>
+            <div :dir="resolvedDir">
               <slot />
             </div>
 
@@ -57,6 +58,8 @@
 
 <script setup>
 import { computed, watch, onBeforeUnmount } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDirection } from '../composables/useDirection'
 
 const props = defineProps({
   show: { type: Boolean, default: false },
@@ -64,6 +67,7 @@ const props = defineProps({
   closeOnEscape: { type: Boolean, default: true },
   showCloseButton: { type: Boolean, default: true },
   dialogClass: { type: [String, Array, Object], default: '' },
+  dir: { type: String, default: null },
   size: {
     type: String,
     default: 'lg',
@@ -72,6 +76,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close'])
+const { t } = useI18n()
+const { dir: globalDir } = useDirection()
 
 const sizeMap = {
   sm: 'max-w-md',
@@ -82,6 +88,7 @@ const sizeMap = {
 }
 
 const sizeClass = computed(() => sizeMap[props.size] || sizeMap.lg)
+const resolvedDir = computed(() => props.dir || globalDir.value)
 
 const handleBackdropClick = () => {
   if (props.closeOnBackdrop) {

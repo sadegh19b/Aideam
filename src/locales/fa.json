@@ -1,0 +1,85 @@
+{
+    "app": {
+        "languageLabel": "زبان",
+        "languages": {
+            "fa": "فارسی",
+            "en": "انگلیسی"
+        }
+    },
+    "swal": {
+        "shared": {
+            "ok": "باشه"
+        },
+        "create": {
+            "title": "ثبت شد",
+            "text": "اکانت جدید با موفقیت اضافه شد"
+        },
+        "update": {
+            "title": "ویرایش انجام شد",
+            "text": "اطلاعات اکانت با موفقیت بروزرسانی شد"
+        },
+        "delete": {
+            "title": "حذف اکانت",
+            "text": "آیا از حذف این اکانت اطمینان دارید؟",
+            "confirm": "بله، حذف شود",
+            "cancel": "انصراف",
+            "successTitle": "حذف شد",
+            "successText": "اکانت با موفقیت حذف شد"
+        }
+    },
+    "form": {
+        "titles": {
+            "create": "افزودن اکانت جدید",
+            "edit": "ویرایش اکانت"
+        },
+        "fields": {
+            "tool": "ابزار",
+            "type": "نوع",
+            "email": "ایمیل",
+            "password": "رمز عبور",
+            "description": "توضیحات",
+            "expiryDate": "تاریخ انقضا"
+        },
+        "types": {
+            "free": "رایگان",
+            "trial": "آزمایشی",
+            "limited": "محدود"
+        },
+        "actions": {
+            "create": "افزودن",
+            "update": "بروزرسانی",
+            "cancel": "لغو"
+        }
+    },
+    "list": {
+        "accountCount": "{count} اکانت",
+        "empty": "هیچ اکانتی ثبت نشده است",
+        "columns": {
+            "email": "ایمیل",
+            "status": "وضعیت",
+            "expiry": "تاریخ انقضا",
+            "actions": "عملیات"
+        }
+    },
+    "card": {
+        "actions": {
+            "view": "مشاهده",
+            "edit": "ویرایش",
+            "delete": "حذف"
+        },
+        "noExpiry": "—"
+    },
+    "details": {
+        "email": "ایمیل",
+        "password": "رمز عبور",
+        "description": "توضیحات",
+        "expiry": "تاریخ انقضا"
+    },
+    "modal": {
+        "close": "بستن"
+    },
+    "tools": {
+        "cursor": "Cursor",
+        "windsurf": "Windsurf"
+    }
+}

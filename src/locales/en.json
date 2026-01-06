@@ -1,0 +1,85 @@
+{
+    "app": {
+        "languageLabel": "Language",
+        "languages": {
+            "fa": "Persian",
+            "en": "English"
+        }
+    },
+    "swal": {
+        "shared": {
+            "ok": "OK"
+        },
+        "create": {
+            "title": "Saved",
+            "text": "The account was added successfully."
+        },
+        "update": {
+            "title": "Updated",
+            "text": "Account details were updated successfully."
+        },
+        "delete": {
+            "title": "Delete account",
+            "text": "Are you sure you want to delete this account?",
+            "confirm": "Yes, delete it",
+            "cancel": "Cancel",
+            "successTitle": "Deleted",
+            "successText": "The account was removed successfully."
+        }
+    },
+    "form": {
+        "titles": {
+            "create": "Add new account",
+            "edit": "Edit account"
+        },
+        "fields": {
+            "tool": "Tool",
+            "type": "Type",
+            "email": "Email",
+            "password": "Password",
+            "description": "Description",
+            "expiryDate": "Expiry date"
+        },
+        "types": {
+            "free": "Free",
+            "trial": "Trial",
+            "limited": "Limited"
+        },
+        "actions": {
+            "create": "Add",
+            "update": "Update",
+            "cancel": "Cancel"
+        }
+    },
+    "list": {
+        "accountCount": "{count} accounts",
+        "empty": "No accounts have been added yet.",
+        "columns": {
+            "email": "Email",
+            "status": "Status",
+            "expiry": "Expiry date",
+            "actions": "Actions"
+        }
+    },
+    "card": {
+        "actions": {
+            "view": "Details",
+            "edit": "Edit",
+            "delete": "Delete"
+        },
+        "noExpiry": "—"
+    },
+    "details": {
+        "email": "Email",
+        "password": "Password",
+        "description": "Description",
+        "expiry": "Expiry date"
+    },
+    "modal": {
+        "close": "Close"
+    },
+    "tools": {
+        "cursor": "Cursor",
+        "windsurf": "Windsurf"
+    }
+}

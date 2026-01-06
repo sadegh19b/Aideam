@@ -18,24 +18,24 @@
               'bg-yellow-100 text-yellow-700': account.type === 'Trial',
               'bg-red-100 text-red-700': account.type === 'Limited'
             }">
-        {{ account.type }}
+        {{ typeLabel }}
       </span>
     </td>
     <td class="py-4 px-2 sm:px-4 text-sm text-gray-700 whitespace-nowrap">
       <span v-if="account.expiryDate" dir="ltr">{{ account.expiryDate }}</span>
-      <span v-else class="text-gray-400">—</span>
+      <span v-else class="text-gray-400">{{ t('card.noExpiry') }}</span>
     </td>
     <td class="py-4 px-2 sm:px-4 text-sm">
-      <div class="flex flex-wrap gap-2 justify-end">
+      <div class="flex flex-wrap gap-2">
         <button @click.stop="showDetails = true"
                 class="px-3 py-1.5 rounded-lg text-xs font-semibold border border-indigo-200 text-indigo-600 hover:bg-indigo-50 transition cursor-pointer">
-          مشاهده
+          {{ t('card.actions.view') }}
         </button>
         <button @click="$emit('edit', account)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-500 text-white hover:bg-blue-600 transition cursor-pointer">
-          ویرایش
+          {{ t('card.actions.edit') }}
         </button>
         <button @click="$emit('delete', account.id)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-500 text-white hover:bg-red-600 transition cursor-pointer">
-          حذف
+          {{ t('card.actions.delete') }}
         </button>
       </div>
     </td>
@@ -50,15 +50,29 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDirection } from '../composables/useDirection'
 import AccountDetailsModal from './AccountDetailsModal.vue'
 
 const props = defineProps({
   account: { type: Object, required: true },
-  isActive: { type: Boolean, default: false },
+  isActive: { type: Boolean, default: false }
 })
 
 defineEmits(['edit', 'delete'])
 
+const { t } = useI18n()
 const showDetails = ref(false)
 const rowIsActive = computed(() => props.isActive || showDetails.value)
+const typeLabel = computed(() => {
+  const type = props.account.type
+  switch (type) {
+    case 'Trial':
+      return t('form.types.trial')
+    case 'Limited':
+      return t('form.types.limited')
+    default:
+      return t('form.types.free')
+  }
+})
 </script>

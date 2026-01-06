@@ -54,18 +54,19 @@ function registerFileHandlers() {
 
     const dataDir = resolveDataDir()
     const accountsFile = path.join(dataDir, 'accounts.json')
+    const settingsFile = path.join(dataDir, 'settings.json')
 
-    const ensureFile = async () => {
-        await fs.mkdir(dataDir, { recursive: true })
+    const ensureFile = async (filePath, defaultContent) => {
+        await fs.mkdir(path.dirname(filePath), { recursive: true })
         try {
-            await fs.access(accountsFile)
+            await fs.access(filePath)
         } catch {
-            await fs.writeFile(accountsFile, '[]', 'utf-8')
+            await fs.writeFile(filePath, defaultContent, 'utf-8')
         }
     }
 
     ipcMain.handle('accounts:read', async () => {
-        await ensureFile()
+        await ensureFile(accountsFile, '[]')
         const raw = await fs.readFile(accountsFile, 'utf-8')
         try {
             return JSON.parse(raw || '[]')
@@ -75,9 +76,26 @@ function registerFileHandlers() {
     })
 
     ipcMain.handle('accounts:write', async (_event, payload) => {
-        await ensureFile()
+        await ensureFile(accountsFile, '[]')
         const data = Array.isArray(payload) ? payload : []
         await fs.writeFile(accountsFile, JSON.stringify(data, null, 2), 'utf-8')
+        return true
+    })
+
+    ipcMain.handle('settings:read', async () => {
+        await ensureFile(settingsFile, JSON.stringify({ language: 'en' }, null, 2))
+        const raw = await fs.readFile(settingsFile, 'utf-8')
+        try {
+            return JSON.parse(raw || '{}')
+        } catch {
+            return { language: 'en' }
+        }
+    })
+
+    ipcMain.handle('settings:write', async (_event, payload) => {
+        await ensureFile(settingsFile, JSON.stringify({ language: 'en' }, null, 2))
+        const data = payload && typeof payload === 'object' ? payload : { language: 'en' }
+        await fs.writeFile(settingsFile, JSON.stringify(data, null, 2), 'utf-8')
         return true
     })
 }
