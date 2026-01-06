@@ -1,10 +1,12 @@
-# AI IDE Accounts Manager
+# Aideam - AI IDE Accounts Manager
 
-A Vue 3 + Vite single-page application for managing AI tool accounts (Cursor & Windsurf) with Tailwind CSS styling and optional Electron desktop packaging.
+<img width="256" height="256" alt="logo" src="./public/logo.png" />
+
+Aideam is a Vue 3 + Vite single-page application for managing AI tool accounts (Cursor & Windsurf) with Tailwind CSS styling and optional Electron desktop packaging.
 
 ## Screenshot
 
-<img width="1495" height="911" alt="image" src="https://github.com/user-attachments/assets/1ef41f0b-eea8-4d4d-a16a-0579a7ed6577" />
+<img width="1266" height="733" alt="image" src="https://github.com/user-attachments/assets/298342ff-0336-4b64-b45a-38d0e63865b9" />
 
 ## Getting Started
 
