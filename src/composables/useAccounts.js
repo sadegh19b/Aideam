@@ -58,6 +58,7 @@ export function useAccounts() {
             if (account.expiryDate && account.expiryDate <= now) {
                 account.type = 'Free'
                 account.expiryDate = null
+                account.updatedAt = new Date().toISOString()
                 changed = true
             }
         })
@@ -69,6 +70,7 @@ export function useAccounts() {
         accounts.value.push({
             id: uuidv4(),
             ...account,
+            updatedAt: null,
             createdAt: new Date().toISOString()
         })
         await saveAccounts()
@@ -78,6 +80,7 @@ export function useAccounts() {
         const index = accounts.value.findIndex(a => a.id === id)
         if (index !== -1) {
             accounts.value[index] = { ...accounts.value[index], ...updates }
+            accounts.value[index].updatedAt = new Date().toISOString()
             await saveAccounts()
         }
     }

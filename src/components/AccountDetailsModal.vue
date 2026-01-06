@@ -8,7 +8,7 @@
           {{ account.type }}
         </span>
         <span v-if="account.expiryDate" class="text-sm text-gray-500">
-          تاریخ انقضا: <span dir="ltr">{{ formatDate(account.expiryDate) }}</span>
+          تاریخ انقضا: <span dir="ltr">{{ account.expiryDate }}</span>
         </span>
       </div>
     </template>
@@ -46,6 +46,4 @@ const badgeClasses = computed(() => ({
   'bg-yellow-400 text-gray-800': props.account.type === 'Trial',
   'bg-red-500 text-white': props.account.type === 'Limited'
 }))
-
-const formatDate = (date) => date + ' (' + new Date(date).toLocaleDateString('fa-IR') + ')'
 </script>

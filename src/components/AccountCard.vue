@@ -22,7 +22,8 @@
       </span>
     </td>
     <td class="py-4 px-2 sm:px-4 text-sm text-gray-700 whitespace-nowrap">
-      {{ account.expiryDate ? formatDate(account.expiryDate) : '—' }}
+      <span v-if="account.expiryDate" dir="ltr">{{ account.expiryDate }}</span>
+      <span v-else class="text-gray-400">—</span>
     </td>
     <td class="py-4 px-2 sm:px-4 text-sm">
       <div class="flex flex-wrap gap-2 justify-end">
@@ -60,8 +61,4 @@ defineEmits(['edit', 'delete'])
 
 const showDetails = ref(false)
 const rowIsActive = computed(() => props.isActive || showDetails.value)
-
-const formatDate = (date) => {
-  return date + ' (' + new Date(date).toLocaleDateString('fa-IR') + ')'
-}
 </script>
