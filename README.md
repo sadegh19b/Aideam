@@ -1,12 +1,12 @@
 # Aideam - AI IDE Account Manager
 
-<img width="256" height="256" alt="logo" src="./public/logo.png" />
+<div style="text-align:center"><img width="256" height="256" alt="logo" src="./public/logo.png" /></div>
 
-Aideam is an Electron desktop application for managing AI tool accounts (Cursor & Windsurf).
+<p style="text-align:center">Aideam is an Electron desktop application for managing AI tool accounts (Cursor & Windsurf).</p>
 
 ## Screenshot
 
-<img width="1266" height="813" alt="image" src="https://github.com/user-attachments/assets/57be8ac1-3c2d-4139-a285-c25772f1c01c" />
+<img width="1266" height="943" alt="image" src="https://github.com/user-attachments/assets/bc15de56-dd2b-4cda-9ea7-a90c033af0b7" />
 
 ## Getting Started
 
@@ -25,10 +25,16 @@ npm run dev:electron # Electron app (requires npm run dev running in another ter
 
 ## Features
 
-- Separate boards for Cursor and Windsurf accounts.
+- Unified table for managing both Cursor and Windsurf accounts.
 - Account tiers: **Free**, **Trial**, and **Limited**.
 - Expiration date tracking for non-free tiers with automatic downgrade to Free when the limit passes.
-- Inline editing with cancel/reset support.
+- **Used** field to track trial usage and prevent re-conversion to trial status.
+- **Provider** field (optional) to account source.
+- Modal-based form for creating and editing accounts.
+- Advanced filtering by tool, status, and used status.
+- Configurable pagination (5, 10, 20, 25, 50, 100 items per page).
+- Copy-to-clipboard functionality for email, password, and provider fields.
+- Responsive design with scrollable modals for mobile devices.
 - SweetAlert2 success toasts on add, update, and delete operations.
 - Bilingual UI (Persian/English) powered by `vue-i18n`, including automatic RTL/LTR direction and locale-aware typography.
 - State persisted in desktop `accounts.json`/`settings.json` via Electron IPC, with browser fallback to `localStorage` for both accounts and preferences (e.g., language).
@@ -39,10 +45,12 @@ npm run dev:electron # Electron app (requires npm run dev running in another ter
 src/
 ├── components/
 │   ├── AccountCard.vue          # Table row, actions, detail modal trigger
-│   ├── AccountDetailsModal.vue
+│   ├── AccountDetailsModal.vue  # Account details with copy-to-clipboard
 │   ├── AccountForm.vue          # Create/update form
-│   ├── AccountList.vue          # Table wrapper per tool
-│   └── BaseModal.vue
+│   ├── AccountFormModal.vue     # Modal wrapper for account form
+│   ├── AccountList.vue          # Unified table with filters and pagination
+│   ├── BaseModal.vue            # Reusable modal component
+│   └── Pagination.vue           # Standalone pagination component
 ├── composables/
 │   ├── useAccounts.js           # desktop/local storage bridge for accounts
 │   ├── useSettings.js           # desktop/local storage bridge for preferences
@@ -78,4 +86,4 @@ This project is licensed under the MIT License.
 
 ---
 
-**Made with ❤️ by [Sadegh](https://github.com/sadegh19b)**
+**Made by vibe coding with ❤️ by [Sadegh](https://github.com/sadegh19b)**

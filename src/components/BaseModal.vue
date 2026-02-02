@@ -10,7 +10,7 @@
     >
       <div
         v-show="show"
-        class="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 py-8"
+        class="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
         @click.self="handleBackdropClick"
       >
         <transition
@@ -23,7 +23,7 @@
         >
           <div
             v-if="show"
-            class="bg-white rounded-3xl shadow-2xl w-full p-6 sm:p-8 space-y-6 relative border border-gray-100 overflow-hidden"
+            class="bg-white rounded-3xl shadow-2xl w-full max-h-[90vh] flex flex-col p-6 sm:p-8 space-y-6 relative border border-gray-100 overflow-hidden"
             :class="[sizeClass, dialogClass]"
             role="dialog"
             aria-modal="true"
@@ -38,15 +38,15 @@
               ×
             </button>
 
-            <header v-if="$slots.header" class="mb-2">
+            <header v-if="$slots.header" class="mb-2 flex-shrink-0">
               <slot name="header" />
             </header>
 
-            <div :dir="resolvedDir">
+            <div :dir="resolvedDir" class="flex-1 overflow-y-auto">
               <slot />
             </div>
 
-            <footer v-if="$slots.footer" class="pt-4 border-t border-gray-100">
+            <footer v-if="$slots.footer" class="pt-4 border-t border-gray-100 flex-shrink-0">
               <slot name="footer" />
             </footer>
           </div>

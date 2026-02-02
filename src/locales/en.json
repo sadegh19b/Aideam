@@ -4,7 +4,9 @@
         "languages": {
             "fa": "Persian",
             "en": "English"
-        }
+        },
+        "title": "AI IDE Accounts Manager",
+        "itemsPerPage": "Items per page"
     },
     "swal": {
         "shared": {
@@ -37,8 +39,14 @@
             "type": "Type",
             "email": "Email",
             "password": "Password",
+            "provider": "Email Provider",
+            "used": "Used",
             "description": "Description",
             "expiryDate": "Expiry date"
+        },
+        "used": {
+            "yes": "Yes",
+            "no": "No"
         },
         "types": {
             "free": "Free",
@@ -55,8 +63,11 @@
         "accountCount": "{count} accounts",
         "empty": "No accounts have been added yet.",
         "columns": {
+            "tool": "Tool",
             "email": "Email",
             "status": "Status",
+            "provider": "Provider",
+            "used": "Used",
             "expiry": "Expiry date",
             "actions": "Actions"
         }
@@ -73,7 +84,14 @@
         "email": "Email",
         "password": "Password",
         "description": "Description",
-        "expiry": "Expiry date"
+        "expiry": "Expiry date",
+        "provider": "Email Provider",
+        "used": "Used",
+        "clickToCopy": "Click to copy",
+        "copySuccess": "Copied!",
+        "copySuccessText": "Text copied to clipboard",
+        "copyError": "Copy Failed",
+        "copyErrorText": "Failed to copy text"
     },
     "modal": {
         "close": "Close"
@@ -81,5 +99,20 @@
     "tools": {
         "cursor": "Cursor",
         "windsurf": "Windsurf"
+    },
+    "filters": {
+        "tool": "Tool",
+        "status": "Status",
+        "used": "Used",
+        "all": "All",
+        "reset": "Reset",
+        "noResults": "No accounts found matching the filters"
+    },
+    "pagination": {
+        "first": "First",
+        "previous": "Previous",
+        "next": "Next",
+        "last": "Last",
+        "showing": "Showing {start} to {end} of {total} accounts"
     }
 }

@@ -13,9 +13,9 @@ let mainWindow = null
 async function createMainWindow() {
     mainWindow = new BrowserWindow({
         width: 1280,
-        height: 820,
-        minWidth: 1280,
-        minHeight: 820,
+        height: 950,
+        minWidth: 1024,
+        minHeight: 768,
         backgroundColor: '#111827',
         resizable: true,
         show: false,

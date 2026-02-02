@@ -7,6 +7,9 @@
     }"
   >
     <td class="py-4 px-2 sm:px-4 text-sm text-gray-900 whitespace-nowrap">
+      <span class="font-medium">{{ account.tool }}</span>
+    </td>
+    <td class="py-4 px-2 sm:px-4 text-sm text-gray-900 whitespace-nowrap">
       <div class="flex items-center gap-3">
         <span class="font-medium">{{ account.email }}</span>
       </div>
@@ -20,6 +23,14 @@
             }">
         {{ typeLabel }}
       </span>
+    </td>
+    <td class="py-4 px-2 sm:px-4 text-sm text-gray-700 whitespace-nowrap">
+      <span v-if="account.provider">{{ account.provider }}</span>
+      <span v-else class="text-gray-400">—</span>
+    </td>
+    <td class="py-4 px-2 sm:px-4 text-sm text-gray-700 whitespace-nowrap">
+      <span v-if="account.used" class="text-red-600 font-semibold">{{ t('form.used.yes') }}</span>
+      <span v-else class="text-gray-400">{{ t('form.used.no') }}</span>
     </td>
     <td class="py-4 px-2 sm:px-4 text-sm text-gray-700 whitespace-nowrap">
       <span v-if="account.expiryDate" dir="ltr">{{ account.expiryDate }}</span>

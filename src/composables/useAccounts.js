@@ -79,7 +79,11 @@ export function useAccounts() {
     const updateAccount = async (id, updates) => {
         const index = accounts.value.findIndex(a => a.id === id)
         if (index !== -1) {
-            accounts.value[index] = { ...accounts.value[index], ...updates }
+            const existingAccount = accounts.value[index]
+            if (updates.type === 'Trial' && existingAccount.used) {
+                throw new Error('Cannot convert used account to trial')
+            }
+            accounts.value[index] = { ...existingAccount, ...updates }
             accounts.value[index].updatedAt = new Date().toISOString()
             await saveAccounts()
         }

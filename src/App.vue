@@ -4,64 +4,89 @@
     :dir="dir"
   >
     <div class="w-full max-w-7xl mx-auto space-y-6">
-      <div class="flex flex-wrap items-center gap-3"
-          :class="dir === 'rtl' ? 'justify-end' : 'justify-start'"
-      >
-        <label class="text-white/90 text-sm font-semibold" :for="languageSelectId">
-          {{ t('app.languageLabel') }}
-        </label>
-        <select
-          :id="languageSelectId"
-          v-model="locale"
-          class="px-4 py-2 rounded-full bg-white/90 text-gray-800 text-sm font-semibold shadow focus:outline-none cursor-pointer"
-          dir="ltr"
+      <div class="flex justify-between items-center w-full">
+        <div class="flex items-center gap-3"
+            :class="dir === 'rtl' ? 'justify-end' : 'justify-start'"
         >
-          <option value="fa">{{ t('app.languages.fa') }}</option>
-          <option value="en">{{ t('app.languages.en') }}</option>
-        </select>
+          <label class="text-white/90 text-sm font-semibold" :for="languageSelectId">
+            {{ t('app.languageLabel') }}
+          </label>
+          <select
+            :id="languageSelectId"
+            v-model="locale"
+            class="px-4 py-2 rounded-full bg-white/90 text-gray-800 text-sm font-semibold shadow focus:outline-none cursor-pointer"
+            dir="ltr"
+          >
+            <option value="fa">{{ t('app.languages.fa') }}</option>
+            <option value="en">{{ t('app.languages.en') }}</option>
+          </select>
+          
+          <div class="flex items-center gap-2">
+            <label class="text-white/90 text-sm font-semibold" :for="itemsPerPageSelect">
+              {{ t('app.itemsPerPage') }}:
+            </label>
+            <select
+              :id="itemsPerPageSelect"
+              v-model="itemsPerPage"
+              class="px-3 py-2 rounded-full bg-white/90 text-gray-800 text-sm font-semibold shadow focus:outline-none cursor-pointer"
+              dir="ltr"
+            >
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        </div>
+        <button @click="showFormModal = true" class="bg-gradient-to-r from-gray-700 to-gray-900 text-white px-6 py-3 rounded-lg font-semibold hover:-translate-y-0.5 hover:shadow-lg transition-all cursor-pointer">
+          {{ t('form.titles.create') }}
+        </button>
       </div>
 
-      <main class="grid lg:grid-cols-[400px_1fr] gap-8 items-start">
-        <AccountForm
-          :editAccount="editingAccount"
-          @submit="handleSubmit"
-          @cancel="handleCancel"
+      <main class="flex flex-col gap-6">
+        <AccountList
+          :accounts="accounts"
+          :active-id="activeAccountId"
+          :items-per-page="itemsPerPage"
+          @edit="handleEdit"
+          @delete="handleDelete"
         />
-        
-        <div class="flex flex-col gap-8">
-          <AccountList
-            :tool="t('tools.cursor')"
-            :accounts="cursorAccounts"
-            :active-id="activeAccountId"
-            @edit="handleEdit"
-            @delete="handleDelete"
-          />
-          
-          <AccountList
-            :tool="t('tools.windsurf')"
-            :accounts="windsurfAccounts"
-            :active-id="activeAccountId"
-            @edit="handleEdit"
-            @delete="handleDelete"
-          />
-        </div>
       </main>
+
+      <AccountFormModal
+        :show="showFormModal"
+        :editAccount="editingAccount"
+        @submit="handleSubmit"
+        @close="handleCloseForm"
+      />
+      
+      <!-- Footer -->
+      <footer class="mt-8 text-center text-white/40 text-xs">
+        <p>Aideam v{{ appVersion }} - AI IDE Account Manager</p>
+        <p class="mt-1">Made by vibe coding (By <a href="https://github.com/sadegh19b" target="_blank" class="text-white/50 hover:text-white/70 underline transition-colors">Sadegh19B</a>)</p>
+      </footer>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import Swal from 'sweetalert2'
 import { useI18n } from 'vue-i18n'
-import AccountForm from './components/AccountForm.vue'
 import AccountList from './components/AccountList.vue'
+import AccountFormModal from './components/AccountFormModal.vue'
 import { useAccounts } from './composables/useAccounts'
 import { useSettings } from './composables/useSettings'
 import { useDirection } from './composables/useDirection'
 
 const { t, locale } = useI18n()
 const languageSelectId = 'app-language-select'
+const itemsPerPageSelect = 'items-per-page-select'
+
+// Get app version from package.json
+const appVersion = ref('2.5.0')
 
 const { accounts, loadAccounts, addAccount, updateAccount, deleteAccount, checkExpiredAccounts } = useAccounts()
 const { loadSettings, setLanguage } = useSettings()
@@ -69,9 +94,8 @@ const { dir } = useDirection()
 
 const editingAccount = ref(null)
 const activeAccountId = ref(null)
-
-const cursorAccounts = computed(() => accounts.value.filter(a => a.tool === 'Cursor'))
-const windsurfAccounts = computed(() => accounts.value.filter(a => a.tool === 'Windsurf'))
+const showFormModal = ref(false)
+const itemsPerPage = ref(10)
 
 const updateDocumentLanguage = (lang) => {
   if (typeof document === 'undefined') return
@@ -98,6 +122,7 @@ const handleSubmit = async (accountData) => {
     await updateAccount(editingAccount.value.id, accountData)
     editingAccount.value = null
     activeAccountId.value = null
+    showFormModal.value = false
     Swal.fire({
       icon: 'success',
       title: t('swal.update.title'),
@@ -106,6 +131,7 @@ const handleSubmit = async (accountData) => {
     })
   } else {
     await addAccount(accountData)
+    showFormModal.value = false
     Swal.fire({
       icon: 'success',
       title: t('swal.create.title'),
@@ -118,11 +144,18 @@ const handleSubmit = async (accountData) => {
 const handleEdit = (account) => {
   editingAccount.value = account
   activeAccountId.value = account.id
+  showFormModal.value = true
 }
 
 const handleCancel = () => {
   editingAccount.value = null
   activeAccountId.value = null
+}
+
+const handleCloseForm = () => {
+  editingAccount.value = null
+  activeAccountId.value = null
+  showFormModal.value = false
 }
 
 const handleDelete = async (id) => {

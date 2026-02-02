@@ -4,7 +4,9 @@
         "languages": {
             "fa": "فارسی",
             "en": "انگلیسی"
-        }
+        },
+        "title": "مدیریت اکانت‌های IDE های هوش مصنوعی",
+        "itemsPerPage": "تعداد آیتم در صفحه"
     },
     "swal": {
         "shared": {
@@ -37,8 +39,14 @@
             "type": "نوع",
             "email": "ایمیل",
             "password": "رمز عبور",
+            "provider": "ارائه دهنده",
+            "used": "استفاده شده",
             "description": "توضیحات",
             "expiryDate": "تاریخ انقضا"
+        },
+        "used": {
+            "yes": "بله",
+            "no": "خیر"
         },
         "types": {
             "free": "رایگان",
@@ -55,8 +63,11 @@
         "accountCount": "{count} اکانت",
         "empty": "هیچ اکانتی ثبت نشده است",
         "columns": {
+            "tool": "ابزار",
             "email": "ایمیل",
             "status": "وضعیت",
+            "provider": "ارائه دهنده ایمیل",
+            "used": "استفاده شده",
             "expiry": "تاریخ انقضا",
             "actions": "عملیات"
         }
@@ -73,7 +84,14 @@
         "email": "ایمیل",
         "password": "رمز عبور",
         "description": "توضیحات",
-        "expiry": "تاریخ انقضا"
+        "expiry": "تاریخ انقضا",
+        "provider": "ارائه دهنده ایمیل",
+        "used": "استفاده شده",
+        "clickToCopy": "کلیک برای کپی",
+        "copySuccess": "کپی شد!",
+        "copySuccessText": "متن در کلیپبورد کپی شد",
+        "copyError": "کپی ناموفق",
+        "copyErrorText": "خطا در کپی کردن متن"
     },
     "modal": {
         "close": "بستن"
@@ -81,5 +99,20 @@
     "tools": {
         "cursor": "Cursor",
         "windsurf": "Windsurf"
+    },
+    "filters": {
+        "tool": "ابزار",
+        "status": "وضعیت",
+        "used": "استفاده شده",
+        "all": "همه",
+        "reset": "بازنشانی",
+        "noResults": "هیچ اکانتی با این فیلترها یافت نشد"
+    },
+    "pagination": {
+        "first": "اولین",
+        "previous": "قبلی",
+        "next": "بعدی",
+        "last": "آخرین",
+        "showing": "نمایش {start} تا {end} از {total} اکانت"
     }
 }
