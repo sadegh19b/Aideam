@@ -27,6 +27,10 @@
             "cancel": "Cancel",
             "successTitle": "Deleted",
             "successText": "The account was removed successfully."
+        },
+        "error": {
+            "title": "Error",
+            "text": "An error occurred. Please try again."
         }
     },
     "form": {

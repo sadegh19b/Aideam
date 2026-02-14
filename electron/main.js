@@ -69,16 +69,34 @@ function registerFileHandlers() {
         await ensureFile(accountsFile, '[]')
         const raw = await fs.readFile(accountsFile, 'utf-8')
         try {
-            return JSON.parse(raw || '[]')
-        } catch {
+            const parsed = JSON.parse(raw || '[]')
+            if (!Array.isArray(parsed)) {
+                console.error('Accounts file contains invalid data structure')
+                return []
+            }
+            return parsed
+        } catch (err) {
+            console.error('Failed to parse accounts file:', err)
             return []
         }
     })
 
     ipcMain.handle('accounts:write', async (_event, payload) => {
         await ensureFile(accountsFile, '[]')
-        const data = Array.isArray(payload) ? payload : []
-        await fs.writeFile(accountsFile, JSON.stringify(data, null, 2), 'utf-8')
+        
+        if (!Array.isArray(payload)) {
+            throw new Error('Invalid payload: expected array')
+        }
+        
+        const validAccounts = payload.filter(acc => {
+            return acc && 
+                   typeof acc === 'object' && 
+                   typeof acc.id === 'string' &&
+                   typeof acc.email === 'string' &&
+                   typeof acc.tool === 'string'
+        })
+        
+        await fs.writeFile(accountsFile, JSON.stringify(validAccounts, null, 2), 'utf-8')
         return true
     })
 

@@ -3,7 +3,7 @@
     "productName": "Aideam",
     "description": "AI IDE Account Manager",
     "author": "Sadegh19B",
-    "version": "2.5.0",
+    "version": "2.5.1",
     "type": "module",
     "main": "electron/main.js",
     "scripts": {

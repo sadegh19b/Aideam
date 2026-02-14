@@ -118,24 +118,33 @@ watch(locale, async (newLocale, oldLocale) => {
 })
 
 const handleSubmit = async (accountData) => {
-  if (editingAccount.value) {
-    await updateAccount(editingAccount.value.id, accountData)
-    editingAccount.value = null
-    activeAccountId.value = null
-    showFormModal.value = false
+  try {
+    if (editingAccount.value) {
+      await updateAccount(editingAccount.value.id, accountData)
+      editingAccount.value = null
+      activeAccountId.value = null
+      showFormModal.value = false
+      Swal.fire({
+        icon: 'success',
+        title: t('swal.update.title'),
+        text: t('swal.update.text'),
+        confirmButtonText: t('swal.shared.ok')
+      })
+    } else {
+      await addAccount(accountData)
+      showFormModal.value = false
+      Swal.fire({
+        icon: 'success',
+        title: t('swal.create.title'),
+        text: t('swal.create.text'),
+        confirmButtonText: t('swal.shared.ok')
+      })
+    }
+  } catch (error) {
     Swal.fire({
-      icon: 'success',
-      title: t('swal.update.title'),
-      text: t('swal.update.text'),
-      confirmButtonText: t('swal.shared.ok')
-    })
-  } else {
-    await addAccount(accountData)
-    showFormModal.value = false
-    Swal.fire({
-      icon: 'success',
-      title: t('swal.create.title'),
-      text: t('swal.create.text'),
+      icon: 'error',
+      title: t('swal.error.title'),
+      text: error.message || t('swal.error.text'),
       confirmButtonText: t('swal.shared.ok')
     })
   }

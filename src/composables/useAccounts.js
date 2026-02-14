@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 
 const accounts = ref([])
@@ -95,7 +95,7 @@ export function useAccounts() {
     }
 
     const getAccountsByTool = (tool) => {
-        return computed(() => accounts.value.filter(a => a.tool === tool))
+        return accounts.value.filter(a => a.tool === tool)
     }
 
     return {

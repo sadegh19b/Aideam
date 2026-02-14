@@ -85,7 +85,7 @@
 </template>
 
 <script setup>
-import { reactive, watch, computed } from 'vue'
+import { reactive, watch, computed, toRaw } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps({
@@ -95,7 +95,14 @@ const props = defineProps({
 const emit = defineEmits(['submit', 'cancel'])
 const { t } = useI18n()
 
-const form = reactive({
+const MAX_LENGTHS = Object.freeze({
+  email: 254,
+  password: 128,
+  provider: 100,
+  description: 500
+})
+
+const INITIAL_STATE = Object.freeze({
   tool: 'Cursor',
   type: 'Free',
   email: '',
@@ -106,11 +113,16 @@ const form = reactive({
   expiryDate: null
 })
 
+const form = reactive({ ...INITIAL_STATE })
+
 const editMode = computed(() => props.editAccount !== null)
 
 watch(() => props.editAccount, (account) => {
   if (account) {
-    Object.assign(form, account)
+    const rawForm = toRaw(form)
+    Object.keys(INITIAL_STATE).forEach(key => {
+      rawForm[key] = account[key] ?? INITIAL_STATE[key]
+    })
   } else {
     resetForm()
   }
@@ -122,7 +134,24 @@ watch(() => form.type, (newType) => {
   }
 })
 
+const validateForm = () => {
+  if (form.email.length > MAX_LENGTHS.email) {
+    throw new Error(`Email must be less than ${MAX_LENGTHS.email} characters`)
+  }
+  if (form.password.length > MAX_LENGTHS.password) {
+    throw new Error(`Password must be less than ${MAX_LENGTHS.password} characters`)
+  }
+  if (form.provider.length > MAX_LENGTHS.provider) {
+    throw new Error(`Provider must be less than ${MAX_LENGTHS.provider} characters`)
+  }
+  if (form.description.length > MAX_LENGTHS.description) {
+    throw new Error(`Description must be less than ${MAX_LENGTHS.description} characters`)
+  }
+  return true
+}
+
 const handleSubmit = () => {
+  validateForm()
   emit('submit', { ...form })
   if (!editMode.value) resetForm()
 }
@@ -133,13 +162,6 @@ const handleCancel = () => {
 }
 
 function resetForm() {
-  form.tool = 'Cursor'
-  form.type = 'Free'
-  form.email = ''
-  form.password = ''
-  form.provider = ''
-  form.used = false
-  form.description = ''
-  form.expiryDate = null
+  Object.assign(form, INITIAL_STATE)
 }
 </script>
